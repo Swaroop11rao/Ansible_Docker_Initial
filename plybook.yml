@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: su
+  vars:
+   centos_packages:
+    - httpd
+    - telnet
+   ubuntu_packages:
+    - telnet
+    - ssh      
+  tasks:
+   - name: Install Packages in CentOS
+     yum: name='{{centos_packages}}' state=present
+     when: ansible_distribution == 'CentOS'
+     notify: 
+      - HTTPD Downloaded
+   - name: Install Packages in Ubuntu
+     apt: name='{{ubuntu_packages}}' state=present
+     when: ansible_distribution == 'Ubuntu'
+     
+  handlers:
+   - name: HTTPD Downloaded
+     service: name=httpd state=restarted
+     
+
