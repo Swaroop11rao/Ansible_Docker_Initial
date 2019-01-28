@@ -1,0 +1,38 @@
+---
+# vars file for install_docker
+#
+
+
+#CentOS Variables
+
+centos_docker_service: docker
+centos_docker_packages: ['yum-utils','device-mapper-persistent-data','lvm2']
+centos_docker_repo: https://download.docker.com/linux/centos/docker-ce.repo
+centos_docker_location: /etc/yum.repos.d/docker-ce.repo
+centos_docker_get_mode: 0644
+centos_docker_ce: docker-ce
+centos_docker_compose_url: https://github.com/docker/compose/releases/download/1.23.2/docker-compose
+
+
+
+#Ubuntu Variables
+
+ubuntu_docker_gpg_key: https://download.docker.com/linux/ubuntu/gpg
+ubuntu_docker_repo: https://download.docker.com/linux/ubuntu
+ubuntu_docker_packages: ['apt-transport-https','ca-certificates','curl','software-properties-common','docker-ce']
+ubuntu_docker_compose_url: https://github.com/docker/compose/releases/download/1.7.0-rc1/docker-compose
+
+
+
+#Docker-Compose Variables
+
+docker_compose: docker-compose
+docker_compose_location: /usr/local/bin/docker-compose
+docker_compose_get_mode: 'u+x,g+x'
+
+
+
+#Docker User-Group Variables
+
+docker_group: docker
+docker_user: docker_user

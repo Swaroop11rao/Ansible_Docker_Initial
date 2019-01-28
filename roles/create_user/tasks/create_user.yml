@@ -1,0 +1,14 @@
+
+    - name: create a user
+      user: name=docker_user append=yes state=present createhome=yes shell=/bin/bash
+
+    - name: allow user to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        line: 'docker_user ALL=(ALL) NOPASSWD: ALL'
+        
+
+    - name: set up authorized keys for the ubuntu user
+      authorized_key: user=docker_user key="{{item}}"
+      with_file:
+        - ~/.ssh/id_rsa.pub

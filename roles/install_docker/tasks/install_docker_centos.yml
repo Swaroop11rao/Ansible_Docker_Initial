@@ -1,0 +1,41 @@
+---
+   - name: "Installing Docker Prerequisite packages"
+     yum:
+      name: '{{centos_docker_packages}}'
+      state: latest
+   - name: "Configuring docker-ce repo"
+     get_url:
+      url: '{{centos_docker_repo}}'
+      dest: '{{centos_docker_location}}'
+      mode: '{{centos_docker_get_mode}}'
+   - name: " Installing Docker latest version"
+     yum:
+       name: '{{centos_docker_ce}}'
+       state: present
+   - name: "Starting and Enabling Docker service"
+     service:
+      name: '{{centos_docker_service}}'
+      state: started
+      enabled: yes
+
+   - name: "Ensure docker-compose is installed and available"
+     get_url: 
+      url : '{{centos_docker_compose_url}}-{{ ansible_system }}-{{ ansible_userspace_architecture }}'
+      dest: '{{docker_compose_location}}'
+      mode: '{{docker_compose_get_mode}}'
+
+   - name: "Install Docker Compose"
+     yum:
+      name: '{{docker_compose}}'
+      state: present
+   
+   - name: Create Docker group
+     group:
+      name: '{{docker_group}}'
+      state: present   
+
+   - name: "Add remote user to docker group"
+     user:
+      name: '{{docker_user}}'
+      groups: '{{dokcer_group}}'
+      append: yes
