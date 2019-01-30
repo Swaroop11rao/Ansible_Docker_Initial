@@ -1,0 +1,57 @@
+Test Cases
+
+
+
+
+CentOS VM
+
+1> Download Docker Packages and Docker repositories (Y)
+
+2> Install Docker (Y) 
+
+3> Verify Docker service is running (Y)
+
+4> Download and Install Docker Compose (Y)
+
+5> Create New User (Y)
+
+6> New user passwordless sudo (Y)
+
+7> Set up SSH for the new user and test it (Y)
+
+8> Create docker group (Y)
+
+9> Add new user to docker group (Y)
+
+10> Ensure docker and docker compose commands with new user and without sudo (Y)
+
+11> Run a hello-world container with the new user (Y)
+
+
+
+
+
+
+Ubuntu VM
+
+1> Download Docker Packages and Docker repositories (Y)
+
+2> Install Docker (Y)
+
+3> Verify Docker service is running (Y)
+
+4> Download and Install Docker Compose (Y)
+
+5> Create New User (Y)
+
+6> New user passwordless sudo (Y)
+
+7> Set up SSH for the new user and test it (Y)
+
+8> Create docker group (Y)
+
+9> Add new user to docker group (Y)
+
+10> Ensure docker and docker compose commands with new user and without sudo (Y)
+
+11> Run a hello-world container with the new user (Y)

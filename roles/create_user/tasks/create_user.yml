@@ -1,14 +1,43 @@
+---
 
-    - name: create a user
-      user: name=docker_user append=yes state=present createhome=yes shell=/bin/bash
 
-    - name: allow user to have passwordless sudo
+# User Creation related Tasks 
+    - name: Create a new User
+      user: 'name={{docker_user}} append=yes state=present createhome=yes shell={{shell_path}}'
+      tags:
+       - create_user
+
+    - name: Allow user to have passwordless sudo
       lineinfile:
-        dest: /etc/sudoers
-        line: 'docker_user ALL=(ALL) NOPASSWD: ALL'
-        
+        dest: '{{sudoers_path}}'
+        line: '{{docker_user}} ALL=(ALL) NOPASSWD: ALL'
+      tags:
+       - create_user        
 
-    - name: set up authorized keys for the ubuntu user
-      authorized_key: user=docker_user key="{{item}}"
+    - name: Set up authorized keys for the new user
+      authorized_key:
+       user='{{docker_user}}'
+       key="{{item}}"
       with_file:
-        - ~/.ssh/id_rsa.pub
+       - '{{ssh_file_path}}'
+      tags:
+       - create_user
+
+
+
+# Adding New User to Docker Group related Tasks
+    - name: Create Docker group
+      group:
+       name: '{{docker_group}}'
+       state: present
+      tags:
+       - docker_group
+
+    - name: Add new User to Docker Group
+      user:
+       name: '{{docker_user}}'
+       groups: '{{docker_group}}'
+       append: yes
+      tags:
+       - docker_group
+

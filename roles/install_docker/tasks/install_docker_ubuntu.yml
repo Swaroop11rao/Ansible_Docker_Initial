@@ -1,32 +1,45 @@
+---
+
+
+#Docker related Tasks
+
+  
+  - name: Install Docker dependencies
+    apt:
+      name: '{{ubuntu_docker_dependencies}}'
+      state: present
+    tags:
+     - docker
+
   - name: Add Docker GPG key
     apt_key: 'url={{ubuntu_docker_gpg_key}}'
+    tags:
+     - docker
 
   - name: Add Docker APT repository
     apt_repository:
       repo: 'deb [arch=amd64] {{ubuntu_docker_repo}} {{ansible_distribution_release}} stable'
+    tags:
+     - docker
 
-  - name: Install list of packages
-    apt:
-      name: '{{ubuntu_docker_packages}}'
-      state: present
-      update_cache: yes    
-   
+  - name: Install Docker 
+    apt: 
+     name: '{{docker_ce}}' 
+     state: present 
+    tags:
+     - docker
+
+
+
+#Docker-Compose related Tasks
   - name: Ensure docker-compose is installed and available
     get_url: 
       url : '{{ubuntu_docker_compose_url}}-{{ ansible_system }}-{{ ansible_userspace_architecture }}'
       dest: '{{docker_compose_location}}'
       mode: '{{docker_compose_get_mode}}'
+    tags:
+     - docker_compose
 
 
-  - name: Create Docker group
-    group:
-     name: '{{docker_group}}'
-     state: present
-  
-  - name: Add user to docker group
-    user:
-     name: '{{docker_user}}'
-     groups: '{{docker_group}}'
-     append: yes
  
 

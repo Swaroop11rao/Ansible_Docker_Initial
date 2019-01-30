@@ -1,2 +1,15 @@
 ---
 # vars file for create_user
+
+#Docker Variables
+docker_user: tradelab
+docker_group: docker
+
+
+
+#General use Variables
+
+shell_path: /bin/bash
+sudoers_path: /etc/sudoers
+ssh_file_path: ~/.ssh/id_rsa.pub
+
